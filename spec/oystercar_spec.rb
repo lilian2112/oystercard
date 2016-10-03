@@ -26,4 +26,10 @@ describe Oystercard do
     card.touch_in
     expect(card.in_journey).to be true
   end
+
+  it "can touch out a card" do
+    card.touch_in
+    card.touch_out
+    expect(card.in_journey).to be false
+  end
 end
