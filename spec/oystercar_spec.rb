@@ -42,4 +42,10 @@ describe Oystercard do
     card.touch_out
     expect(card.in_journey).to be false
   end
+  it "can deduct fair from balance at touch out" do
+    card.top_up(10)
+    card.touch_in
+    card.touch_out
+    expect(card.balance).to eq 9
+  end
 end
