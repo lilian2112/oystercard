@@ -1,4 +1,4 @@
-##Oystercard Challenge##
+#Oystercard Challenge#
 Create an oystercard ecosystem
-#Authors#
+##Authors##
 Lilian and Naomi
