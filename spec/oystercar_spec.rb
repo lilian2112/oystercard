@@ -17,11 +17,6 @@ describe Oystercard do
     expect{card.top_up(limit)}.to raise_error "Balance limit exceeded"
   end
 
-  it "should reduce the balance by the specified amount" do
-    card.top_up(10)
-    expect(card.deduct(5)).to eq (5)
-  end
-
    it "should raise error if insufficant funds" do
      expect{card.touch_in}.to raise_error "Insufficant funds"
    end
@@ -45,7 +40,6 @@ describe Oystercard do
   it "can deduct fair from balance at touch out" do
     card.top_up(10)
     card.touch_in
-    card.touch_out
-    expect(card.balance).to eq 9
+    expect{card.touch_out}.to change{card.balance}.from(10).to(9)
   end
 end
