@@ -17,4 +17,13 @@ describe Oystercard do
     card.top_up(10)
     expect(card.deduct(5)).to eq (5)
   end
+
+  it "can confirm that the card is not in journey" do
+    expect(card.in_journey).to be false
+  end
+
+  it "can touch in a card" do
+    card.touch_in
+    expect(card.in_journey).to be true
+  end
 end
