@@ -9,6 +9,12 @@ describe Oystercard do
     expect(card.top_up(10)).to eq (10)
   end
   it "should raise error if balance limit exceeded" do
-    expect{card.top_up(91)}.to raise_error "Balance limit exceeded"
+    limit = Oystercard::Balance_limit
+    card.top_up(1)
+    expect{card.top_up(limit)}.to raise_error "Balance limit exceeded"
+  end
+  it "should reduce the balance by the specified amount" do
+    card.top_up(10)
+    expect(card.deduct(5)).to eq (5)
   end
 end
