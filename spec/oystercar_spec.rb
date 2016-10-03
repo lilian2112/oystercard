@@ -40,6 +40,6 @@ describe Oystercard do
   it "can deduct fair from balance at touch out" do
     card.top_up(10)
     card.touch_in
-    expect{card.touch_out}.to change{card.balance}.from(10).to(9)
+    expect{card.touch_out}.to change{card.balance}.by(-Oystercard::Minimum_fair)
   end
 end
