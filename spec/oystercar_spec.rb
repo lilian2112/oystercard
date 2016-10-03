@@ -17,12 +17,16 @@ describe Oystercard do
     card.top_up(10)
     expect(card.deduct(5)).to eq (5)
   end
+  it "should raise error if insufficant funds at touch in" do
+    expect{card.touch_in}.to raise_error "Insufficant funds"
+  end
 
   it "can confirm that the card is not in journey" do
     expect(card.in_journey).to be false
   end
 
   it "can touch in a card" do
+    card.top_up(10)
     card.touch_in
     expect(card.in_journey).to be true
   end
