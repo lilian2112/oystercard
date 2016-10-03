@@ -2,6 +2,7 @@ require 'oystercard'
 
 describe Oystercard do
   subject(:card) { described_class.new }
+  let(:station) {double :station}
 
   it 'should have a balance of 0' do
     expect(card.balance).to eq (0r)
@@ -18,7 +19,7 @@ describe Oystercard do
   end
 
    it "should raise error if insufficant funds" do
-     expect{card.touch_in}.to raise_error "Insufficant funds"
+     expect{card.touch_in(station)}.to raise_error "Insufficant funds"
    end
 
   it "can confirm that the card is not in journey" do
@@ -27,19 +28,24 @@ describe Oystercard do
 
   it "can touch in a card" do
     card.top_up(10)
-    card.touch_in
+    card.touch_in(station)
     expect(card.in_journey).to be true
+  end
+
+  it "will save entry station at touch in" do
+    card.top_up(10)
+    expect(card.touch_in(station)).to eq station
   end
 
   it "can touch out a card" do
     card.top_up(10)
-    card.touch_in
+    card.touch_in(station)
     card.touch_out
     expect(card.in_journey).to be false
   end
   it "can deduct fair from balance at touch out" do
     card.top_up(10)
-    card.touch_in
+    card.touch_in(station)
     expect{card.touch_out}.to change{card.balance}.by(-Oystercard::Minimum_fair)
   end
 end
